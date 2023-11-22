@@ -1,6 +1,41 @@
+import Personas.*
+import Planetas.*
 
-test "testX" {
-
-	assert.that(true)
-
+describe "test sobre escenario basico" {	
+	const julieta = new Persona(edad = 42)
+	const ana = new Atleta(edad = 25)
+	const rosa = new Atleta(edad = 25, cantTecnicasConocidas = 8)
+	const perla = new Atleta(edad = 28, cantTecnicasConocidas = 4, masaMuscular = 6)
+	const monica = new Docente(edad = 45, cantCursosDados = 6)
+	const luisa = new Docente(edad = 35, cantCursosDados = 1)
+	const triton = new Planeta(habitantes = #{julieta, ana, rosa, perla, monica, luisa}, cantMuseos = 0, longitudMuralla = 0)
+	
+	test "la delegacion diplomatica de triton esta formada por ana, rosa y monica" {
+		assert.equals(#{ana, rosa, monica}, triton.delegacionDiplomatica())
+	}
+	
+	test "triton no es culto" {
+		assert.notThat(triton.esCulto())
+	}
+	
+	test "la potencia real de triton es 184" {
+		assert.equals(184, triton.potenciaReal())
+	}
+	
+	test "la defensa inicial de triton es 2" {
+		assert.equals(2, triton.defensa())
+	}
+	
+	test "perla aprende una tecnica y entrena 15 dias, su potencia ahora es 65" {
+		perla.entrenarDias(15)
+		perla.aprenderTecnica()
+		assert.equals(65, perla.potencia())
+	}
+	
+	test "perla aprende una tecnica mas y es destacada" {
+		perla.entrenarDias(15)
+		perla.aprenderTecnica()
+		perla.aprenderTecnica()
+		assert.that(perla.esDestacada())
+	}
 }
